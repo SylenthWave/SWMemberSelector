@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SWMemberSelectorController.h"
 
 @interface ViewController ()
 
@@ -16,12 +17,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)buttonTapped:(id)sender {
+    
+    NSArray *members = [NSArray array];
+    SWMemberSelectorController *memberSelectorController = [[SWMemberSelectorController alloc] initWithMembers:members];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:memberSelectorController];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor orangeColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
 @end

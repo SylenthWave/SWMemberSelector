@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "197B50EE6BEE28F743256C4951A53089F526AD3E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B75B4EB5139D644BD8900AE4387820937111ED2D" : 0,
+    "197B50EE6BEE28F743256C4951A53089F526AD3E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "94BB42BA-8CD4-4D3F-8C01-12376D590278",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B75B4EB5139D644BD8900AE4387820937111ED2D" : "..\/..\/Work\/MobileAddressBook",
+    "197B50EE6BEE28F743256C4951A53089F526AD3E" : "SWMemberSelector\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SWMemberSelector",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SWMemberSelector.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:SylenthWave\/SWMemberSelector.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "197B50EE6BEE28F743256C4951A53089F526AD3E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/mixbox\/sharecontacts.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B75B4EB5139D644BD8900AE4387820937111ED2D"
+    }
+  ]
+}
