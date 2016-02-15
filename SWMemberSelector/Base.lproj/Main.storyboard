@@ -18,8 +18,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmr-Ef-f39">
-                                <rect key="frame" x="285" y="285" width="30" height="30"/>
-                                <state key="normal" title="+"/>
+                                <rect key="frame" x="279" y="279" width="42" height="42"/>
+                                <state key="normal" backgroundImage="add"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1x1-TT-UtV"/>
                                 </connections>
@@ -36,4 +36,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="add" width="42" height="42"/>
+    </resources>
 </document>

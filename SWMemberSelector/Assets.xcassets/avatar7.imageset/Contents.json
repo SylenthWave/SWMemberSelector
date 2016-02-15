@@ -1,19 +1,17 @@
 {
   "images" : [
     {
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "unselect_img@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "avatar7@2x.png"
     },
     {
       "idiom" : "universal",
+      "filename" : "avatar7@3x.jpg",
       "scale" : "3x"
     }
   ],
