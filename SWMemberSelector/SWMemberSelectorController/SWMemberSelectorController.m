@@ -335,7 +335,7 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
         
         _searchIcon = ({
             UIImageView *searchIcon = [[UIImageView alloc] init];
-            searchIcon.image = [UIImage imageNamed:@"icon_search"];
+            searchIcon.image = [UIImage imageNamed:@"search_icon"];
             searchIcon;
         });
         
