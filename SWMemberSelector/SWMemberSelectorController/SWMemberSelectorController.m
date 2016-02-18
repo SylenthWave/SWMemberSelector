@@ -170,30 +170,24 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    // _selectorImageView layout
     NSDictionary *viewDic = NSDictionaryOfVariableBindings(_selectorImageView,_headerImageView,_nicknameLabel);
-    NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_selectorImageView(==25)]-7-[_headerImageView(==35)]-7-[_nicknameLabel]" options:0 metrics:nil views:viewDic];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_selectorImageView(==25)]-7-[_headerImageView(==35)]-7-[_nicknameLabel]" options:0 metrics:nil views:viewDic]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_selectorImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+     [self addConstraint:[NSLayoutConstraint constraintWithItem:_selectorImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:25.0]];
     
-    NSArray *selectorImageViewVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_selectorImageView(==25)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_selectorImageView)];
-    NSLayoutConstraint *selectorImageViewCenterConstraint = [NSLayoutConstraint constraintWithItem:_selectorImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0];
+    // headerImageView layout
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_headerImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_selectorImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_headerImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:35.0]];
     
-    NSLayoutConstraint *headerCenterConstraint = [NSLayoutConstraint constraintWithItem:_headerImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_selectorImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0];
-    NSArray *headerVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_headerImageView(==35)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(_headerImageView)];
+    // nicknameLabel layout
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_nicknameLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:35.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_nicknameLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
     
-    NSArray *labelVericalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_nicknameLabel(==35)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_nicknameLabel)];
-    NSLayoutConstraint *labelCenterConstraint = [NSLayoutConstraint constraintWithItem:_nicknameLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0];
-    
-    // line view
-    
+    // lineView layout
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_lineView]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_lineView)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lineView(==0.5)]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_lineView)]];
     
-    [self addConstraints:horizontalConstraints];
-    [self addConstraints:selectorImageViewVerticalConstraints];
-    [self addConstraint:selectorImageViewCenterConstraint];
-    [self addConstraints:labelVericalConstraints];
-    [self addConstraint:labelCenterConstraint];
-    [self addConstraints:headerVerticalConstraints];
-    [self addConstraint:headerCenterConstraint];
 }
 
 - (void)setupWithSWMemebr:(SWMember *)member {
@@ -288,7 +282,7 @@
 @protocol SWMemberSearchBarDelegate <NSObject>
 
 @optional
-- (void)memberSearchBarIsSecondTappedBackwardButton;
+- (void)memberSearchBardoubleTappedBackwardButton;
 - (void)memberSearchBarDidBeginEdit:(SWMemberSearchBar *)searchBar;
 - (BOOL)memberSearchBar:(SWMemberSearchBar *)memberSearchBar shouldChangeCharacterInRange:(NSRange)range replacmentString:(NSString *)string;
 @end
@@ -369,8 +363,8 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
                 if (weakSelf.isSecondBackward) {
                     
                     if (self.memberArray.count > 0) {
-                        if ([weakSelf.delegate respondsToSelector:@selector(memberSearchBarIsSecondTappedBackwardButton)]) {
-                            [weakSelf.delegate memberSearchBarIsSecondTappedBackwardButton];
+                        if ([weakSelf.delegate respondsToSelector:@selector(memberSearchBardoubleTappedBackwardButton)]) {
+                            [weakSelf.delegate memberSearchBardoubleTappedBackwardButton];
                         }
                     }
                     weakSelf.isSecondBackward = NO;
@@ -407,22 +401,17 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
 
 - (void)layoutMemberSearchBarViews {
     
-    NSArray *viewsHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-10-[_collectionView(==%.0f)]-2-[_textField]-10-|",self.collectionViewOriginalWidth] options:0 metrics:nil views:NSDictionaryOfVariableBindings(_collectionView,_textField)];
-    NSArray *collectionViewVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_collectionView(==35)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_collectionView)];
-    NSArray *textFieldVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_textField(==40)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textField)];
-    
-    NSLayoutConstraint *collectionViewCenterConstraint = [NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-    NSLayoutConstraint *textFieldCenterConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+    // CollectionView/searchIcon/textField layout
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-10-[_collectionView(==%.0f)]-2-[_textField]-10-|",self.collectionViewOriginalWidth] options:0 metrics:nil views:NSDictionaryOfVariableBindings(_collectionView,_textField)]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:0.0 constant:35.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_textField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:0.0 constant:40.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     
     self.lineLayer.frame = CGRectMake(0, self.bounds.size.height-0.5, self.bounds.size.width, 0.5);
     self.searchIcon.frame = CGRectMake(0, 0, 23, 23);
     self.searchIcon.center = CGPointMake(kIconTextFieldMargin - 3, self.frame.size.height/2);
     
-    [self addConstraint:collectionViewCenterConstraint];
-    [self addConstraint:textFieldCenterConstraint];
-    [self addConstraints:viewsHorizontalConstraints];
-    [self addConstraints:collectionViewVerticalConstraints];
-    [self addConstraints:textFieldVerticalConstraints];
 }
 
 - (NSMutableArray *)memberArray {
@@ -773,7 +762,7 @@ static const NSInteger SWMemberSelectTableViewOffset = 50;
     return YES;
 }
 
-- (void)memberSearchBarIsSecondTappedBackwardButton {
+- (void)memberSearchBardoubleTappedBackwardButton {
     if ([self.delegate respondsToSelector:@selector(doubleTappedBackwardButton)]) {
         [self.delegate doubleTappedBackwardButton];
     }
