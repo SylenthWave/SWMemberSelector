@@ -868,7 +868,7 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
     self.tableView.dataSource = self;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.sectionIndexColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    self.tableView.sectionIndexColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SWMemberSelectorCell class] forCellReuseIdentifier:SWMemberSelectorCellID];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -1060,7 +1060,7 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *headerview = (UITableViewHeaderFooterView *)view;
-    headerview.contentView.backgroundColor = [UIColor lightGrayColor];
+    headerview.contentView.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.96 alpha:1.0];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

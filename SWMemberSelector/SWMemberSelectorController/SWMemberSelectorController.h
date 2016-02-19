@@ -43,12 +43,14 @@ typedef NS_ENUM(NSUInteger, SWMemberSelectorStatus) {
 @interface SWMemberSelectorController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong, readonly) UITableView *tableView;
+
 @property (nonatomic, strong, readonly) SWMemberSearchBar *memberSearchBar;
+
 @property (nonatomic, strong, readonly) SWMemberSearchResultViewController *resultViewController;
 
 /*!
  @discussion initialize ABMemberSelectViewController
- @param members array must be ABMember objects
+ @param members array must be SWMember objects
  */
 - (instancetype)initWithMembers:(NSArray *)members;
 

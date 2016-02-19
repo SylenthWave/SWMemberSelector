@@ -9,6 +9,18 @@
 #import "ViewController.h"
 #import "SWMemberSelectorController.h"
 
+@interface SWNavigationContoller : UINavigationController
+
+@end
+
+@implementation SWNavigationContoller
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+@end
+
 @interface ViewController ()
 
 @end
@@ -35,13 +47,12 @@
     
     
     SWMemberSelectorController *memberSelectorController = [[SWMemberSelectorController alloc] initWithMembers:members];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:memberSelectorController];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor orangeColor]];
+    SWNavigationContoller *nav = [[SWNavigationContoller alloc] initWithRootViewController:memberSelectorController];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self presentViewController:nav animated:YES completion:nil];
     
-    
-    
 }
+
 
 @end
