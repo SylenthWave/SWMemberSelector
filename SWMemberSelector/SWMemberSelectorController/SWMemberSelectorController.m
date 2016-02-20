@@ -871,7 +871,21 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
     self.tableView.sectionIndexColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SWMemberSelectorCell class] forCellReuseIdentifier:SWMemberSelectorCellID];
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    self.tableView.tableFooterView = ({
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+        UIView *topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) - 12, 0.5)];
+        topLineView.backgroundColor =[UIColor colorWithWhite:0.8 alpha:1.0];
+        UILabel *textLabel = [UILabel new];
+        textLabel.font = [UIFont systemFontOfSize:16];
+        textLabel.textColor = [UIColor grayColor];
+        textLabel.text = [NSString stringWithFormat:@"%ld位联系人",self.originMembers.count];
+        [textLabel sizeToFit];
+        textLabel.center = footerView.center;
+        [footerView addSubview:textLabel];
+        [footerView addSubview:topLineView];
+        footerView;
+    });
     
     [self.view addSubview:self.tableView];
 }
@@ -978,7 +992,7 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
         [cell setupWithSWMemebr:member];
         if ([self.sectionMembers[indexPath.section] count] == indexPath.row + 1) {
             cell.lineView.hidden = YES;
-        } else {
+       } else {
             cell.lineView.hidden = NO;
         }
         return cell;
@@ -987,6 +1001,24 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
         SWMember *member = self.filtredMembers[indexPath.row];
         [cell setupWithSWMemebr:member];
         return cell;
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (tableView == self.tableView) {
+        return self.sectionMembers.count;
+    } else {
+        return 1;
+    }
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == self.tableView) {
+        NSMutableArray *sectionMembersInSection = self.sectionMembers[section];
+        return sectionMembersInSection.count;
+    } else {
+        return self.filtredMembers.count;
     }
 }
 
@@ -1051,24 +1083,6 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
     
     [self.tableView reloadData];
     [self changeConfirmButtonNumber];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView == self.tableView) {
-        return self.sectionMembers.count;
-    } else {
-        return 1;
-    }
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.tableView) {
-        NSMutableArray *sectionMembersInSection = self.sectionMembers[section];
-        return sectionMembersInSection.count;
-    } else {
-        return self.filtredMembers.count;
-    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
