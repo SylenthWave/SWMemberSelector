@@ -737,7 +737,7 @@ static const NSInteger SWMemberSelectTableViewOffset = 50;
     
     //Remove or Insert self
     if (range.length == 1 && memberSearchBar.textField.text.length == 1) {
-        //delete textField to last char
+        //remove to the last character
         //remove self from super view & super view controller
         [self removeViewAndControllerFromContainerViewController];
     } else {
@@ -990,6 +990,19 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    NSArray *members = self.sectionMembers[section];
+    if (members.count > 0) {
+        return 20;
+    } else {
+        return 0;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.tableView ) {
@@ -1061,6 +1074,7 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *headerview = (UITableViewHeaderFooterView *)view;
     headerview.contentView.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.96 alpha:1.0];
+    headerview.textLabel.font = [UIFont systemFontOfSize:14];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -1095,9 +1109,6 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
-}
 
 #pragma mark -- UIScrollView Delegate
 
