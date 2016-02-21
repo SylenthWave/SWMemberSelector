@@ -374,7 +374,6 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
                     
                     _grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height)];
                     _grayView.backgroundColor = [UIColor grayColor];
-                    _grayView.tag = 1;
                     _grayView.alpha = 0.4;
                     [cell addSubview:_grayView];
                     weakSelf.isSecondBackward = YES;
@@ -441,9 +440,7 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
     // remove the grayView from SWMemberCollectionViewCell
     if (self.isSecondBackward) {
         self.isSecondBackward = NO;
-        SWMemberCollectionViewCell *cell = (SWMemberCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.memberArray.count-1 inSection:0]];
-        UIView *grayView = [cell viewWithTag:1];
-        [grayView removeFromSuperview];
+        [self.grayView removeFromSuperview];
     }
     
     
