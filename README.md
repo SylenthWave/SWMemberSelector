@@ -31,7 +31,7 @@ NSMutableArray *members = [NSMutableArray new];
 
 Then pass the array to initializer
 
-```
+```Objective-c
 SWMemberSelectorController *memberSelectorController = [[SWMemberSelectorController alloc] initWithMembers:members];
 SWNavigationContoller *nav = [[SWNavigationContoller alloc] initWithRootViewController:memberSelectorController];
 [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
