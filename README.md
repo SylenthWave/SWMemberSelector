@@ -4,7 +4,7 @@ SWMemberSelector is a contacts selector like WeChat
 
 ## Screenshots
 
-![Screenshots](http://7o51ag.com1.z0.glb.clouddn.com/github_swmemberselector.gif)
+![Cast](http://7o51ag.com1.z0.glb.clouddn.com/github_swmemberselector.gif)
 
 ## Requirements
 
