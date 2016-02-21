@@ -13,7 +13,7 @@ SWMemberSelector is a contacts selector like WeChat, and supports PinYin search.
 
 ## Usage
 
-Declare an array of SWMember Object and save the status
+Declare an array of SWMember object and save the status
 
 ```
 NSArray *avatars = @[@"avatar1",@"avatar2",@"avatar3",@"avatar4",@"avatar5",@"avatar6"];
@@ -38,7 +38,7 @@ SWNavigationContoller *nav = [[SWNavigationContoller alloc] initWithRootViewCont
 [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 [self presentViewController:nav animated:YES completion:nil];
 ```
-your can call `didSelectedMemeberWithBlock` to get selected members
+Call `didSelectedMemeberWithBlock` to get selected members
 
 ```
 [memberSelectorController didSelectedMemeberWithBlock:^(NSArray *members) {
