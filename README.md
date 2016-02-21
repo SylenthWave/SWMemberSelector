@@ -47,7 +47,7 @@ your can call `didSelectedMemeberWithBlock` to get selected members
 ```
 
 ## Credit
-* PinYin used in [PinYin4Objc](https://github.com/kimziv/PinYin4Objc)
+* PinYin using the [PinYin4Objc](https://github.com/kimziv/PinYin4Objc)
 
 ## Author
 * SylenthWave(Mengdi ji) [sylenthwave@gmail.com](sylenthwave@gmail.com)
