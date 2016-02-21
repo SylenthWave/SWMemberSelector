@@ -282,7 +282,7 @@
 @protocol SWMemberSearchBarDelegate <NSObject>
 
 @optional
-- (void)memberSearchBardoubleTappedBackwardButton;
+- (void)memberSearchBarDidDoubleTappedBackwardButton;
 - (void)memberSearchBarDidBeginEdit:(SWMemberSearchBar *)searchBar;
 - (BOOL)memberSearchBar:(SWMemberSearchBar *)memberSearchBar shouldChangeCharacterInRange:(NSRange)range replacmentString:(NSString *)string;
 @end
@@ -310,10 +310,10 @@ static const CGFloat kIconTextFieldMargin = 25;
 typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
 
 @interface SWMemberSearchBar ()<UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
-@property (nonatomic, strong) CAShapeLayer *lineLayer;
 @property (nonatomic, copy) SWMemberSearchBarSelectedCellBlock selectedCellBlock;
 @property (nonatomic, assign) CGFloat collectionViewOriginalWidth;
 @property (nonatomic, assign) BOOL isSecondBackward;
+@property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UIView *grayView;
 @end
 
@@ -329,6 +329,7 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
         
         _searchIcon = ({
             UIImageView *searchIcon = [[UIImageView alloc] init];
+            searchIcon.translatesAutoresizingMaskIntoConstraints = NO;
             searchIcon.image = kMemberSearchBarIconImage;
             searchIcon;
         });
@@ -364,8 +365,8 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
                 if (weakSelf.isSecondBackward) {
                     
                     if (self.memberArray.count > 0) {
-                        if ([weakSelf.delegate respondsToSelector:@selector(memberSearchBardoubleTappedBackwardButton)]) {
-                            [weakSelf.delegate memberSearchBardoubleTappedBackwardButton];
+                        if ([weakSelf.delegate respondsToSelector:@selector(memberSearchBarDidDoubleTappedBackwardButton)]) {
+                            [weakSelf.delegate memberSearchBarDidDoubleTappedBackwardButton];
                         }
                     }
                     weakSelf.isSecondBackward = NO;
@@ -384,16 +385,17 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
         });
         
         
-        _lineLayer = ({
-            CAShapeLayer *lineLayer = [CAShapeLayer new];
-            lineLayer.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.2].CGColor;
-            lineLayer;
+        _lineView = ({
+            UIView *lineView = [UIView new];
+            lineView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+            lineView.translatesAutoresizingMaskIntoConstraints = NO;
+            lineView;
         });
         
         [self addSubview:_collectionView];
         [self addSubview:_searchIcon];
         [self addSubview:_textField];
-        [self.layer addSublayer:_lineLayer];
+        [self addSubview:_lineView];
         [self layoutMemberSearchBarViews];
     }
     return self;
@@ -408,9 +410,13 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     
-    self.lineLayer.frame = CGRectMake(0, self.bounds.size.height-0.5, self.bounds.size.width, 0.5);
-    self.searchIcon.frame = CGRectMake(0, 0, 23, 23);
-    self.searchIcon.center = CGPointMake(kIconTextFieldMargin - 3, self.frame.size.height/2);
+    // lineView layout
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lineView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_lineView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lineView(0.5)]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_lineView)]];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_searchIcon(23)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_searchIcon)]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.searchIcon attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.searchIcon attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:23.0]];
     
 }
 
@@ -770,7 +776,7 @@ static const NSInteger SWMemberSelectTableViewOffset = 50;
     return YES;
 }
 
-- (void)memberSearchBardoubleTappedBackwardButton {
+- (void)memberSearchBarDidDoubleTappedBackwardButton {
     if ([self.delegate respondsToSelector:@selector(doubleTappedBackwardButton)]) {
         [self.delegate doubleTappedBackwardButton];
     }
