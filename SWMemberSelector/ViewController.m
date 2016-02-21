@@ -52,6 +52,10 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self presentViewController:nav animated:YES completion:nil];
     
+    [memberSelectorController didSelectedMemeberWithBlock:^(NSArray *members) {
+        NSLog(@"tapped confirm button\nselected %ld members",members.count);
+    }];
+    
 }
 
 

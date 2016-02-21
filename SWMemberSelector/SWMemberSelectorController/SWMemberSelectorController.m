@@ -195,13 +195,13 @@
     self.headerImageView.image = member.headerImage;
     switch (member.status) {
         case SWMemberSelectorStatusUnSelect:
-            self.selectorImageView.image = [UIImage imageNamed:@"unselect_img"];
+            self.selectorImageView.image = kMemberSelectorCellUnSelectImage;
             break;
         case SWMemberSelectorStatusSelected:
-            self.selectorImageView.image = [UIImage imageNamed:@"selected_img"];
+            self.selectorImageView.image = kMemberSelectorCellSelectedImage;
             break;
         case SWMemberSelectorStatusSelecting:
-            self.selectorImageView.image = [UIImage imageNamed:@"selecting_img"];
+            self.selectorImageView.image = kMemberSelectorCellSelectingImage;
             break;
         default:
             break;
@@ -329,7 +329,7 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
         
         _searchIcon = ({
             UIImageView *searchIcon = [[UIImageView alloc] init];
-            searchIcon.image = [UIImage imageNamed:@"search_icon"];
+            searchIcon.image = kMemberSearchBarIconImage;
             searchIcon;
         });
         
@@ -351,6 +351,7 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
         _textField = ({
             SWMemberSelectedTextField *textField = [SWMemberSelectedTextField new];
             textField.font = [UIFont systemFontOfSize:14];
+            textField.tintColor = kMemberSearchBarTintColor;
             textField.placeholder = NSLocalizedString(@"搜索", nil);
             textField.delegate = self;
             textField.translatesAutoresizingMaskIntoConstraints = NO;
@@ -371,7 +372,6 @@ typedef void(^SWMemberSearchBarSelectedCellBlock)(SWMember *member);
                     [_grayView removeFromSuperview];
                     
                 } else {
-                    
                     _grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height)];
                     _grayView.backgroundColor = [UIColor grayColor];
                     _grayView.alpha = 0.4;
@@ -876,7 +876,7 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
     self.tableView.dataSource = self;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.sectionIndexColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
+    self.tableView.sectionIndexColor = kMemberSelectorSectionIndexColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SWMemberSelectorCell class] forCellReuseIdentifier:SWMemberSelectorCellID];
     
@@ -1031,13 +1031,17 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    NSArray *members = self.sectionMembers[section];
-    if (members.count > 0) {
-        return 20;
+    if (tableView == self.tableView) {
+        NSArray *members = self.sectionMembers[section];
+        if (members.count > 0) {
+            return 20;
+        } else {
+            return 0;
+        }    
     } else {
         return 0;
     }
@@ -1095,7 +1099,7 @@ static NSString * const SWMemberSearchResultCellID = @"ResultTableViewCellIdenti
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *headerview = (UITableViewHeaderFooterView *)view;
-    headerview.contentView.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.96 alpha:1.0];
+    headerview.contentView.backgroundColor = kMemberSelectorHeaderColor;
     headerview.textLabel.font = [UIFont systemFontOfSize:14];
 }
 

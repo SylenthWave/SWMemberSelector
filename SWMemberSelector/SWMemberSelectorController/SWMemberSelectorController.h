@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@class SWMemberSearchBar;
-@class SWMemberSearchResultViewController;
 
 #pragma mark - SWMember
 ///-------------------------------------------
@@ -40,17 +38,27 @@ typedef NS_ENUM(NSUInteger, SWMemberSelectorStatus) {
 /// ABMemberSelectViewController class
 ///------------------------------------------
 
+// UI
+#define kMemberSearchBarIconImage [UIImage imageNamed:@"search_icon"]
+#define kMemberSelectorCellUnSelectImage [UIImage imageNamed:@"unselect_img"]
+#define kMemberSelectorCellSelectingImage [UIImage imageNamed:@"selecting_img"]
+#define kMemberSelectorCellSelectedImage [UIImage imageNamed:@"selected_img"]
+
+// UIColor
+#define kMemberSelectorHeaderColor [UIColor colorWithRed:0.93 green:0.93 blue:0.96 alpha:1.0]
+#define kMemberSelectorSectionIndexColor [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0]
+#define kMemberSearchBarTintColor [UIColor colorWithRed:0.13 green:0.76 blue:0.56 alpha:1.0]
+
 @interface SWMemberSelectorController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
+/*!
+ @discussion main table view
+ */
 @property (nonatomic, strong, readonly) UITableView *tableView;
-
-@property (nonatomic, strong, readonly) SWMemberSearchBar *memberSearchBar;
-
-@property (nonatomic, strong, readonly) SWMemberSearchResultViewController *resultViewController;
 
 /*!
  @discussion initialize ABMemberSelectViewController
- @param members array must be SWMember objects
+ @param members array must be SWMember object
  */
 - (instancetype)initWithMembers:(NSArray *)members;
 
